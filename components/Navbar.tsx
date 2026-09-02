@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import HeartDottedText from '@/components/HeartDottedText'
 
 const bookingUrl = 'https://book.cuddlesapp.com/kennedi-grooming-studio'
 
@@ -38,7 +39,9 @@ export default function Navbar() {
         <a href="/" className="navbar-logo" onClick={() => setMenuOpen(false)}>
           <img src="/blog/logo-v2.png" alt="Kennedi's Grooming Studio logo" />
           <span className="navbar-lockup">
-            <span className="navbar-brand">Kennedi&apos;s Grooming Studio</span>
+            <HeartDottedText as="span" className="navbar-brand">
+              Kennedi&apos;s Grooming Studio
+            </HeartDottedText>
             <span className="navbar-tagline">1:1 Professional Pet Grooming</span>
           </span>
         </a>
