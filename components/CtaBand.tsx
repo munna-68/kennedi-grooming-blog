@@ -10,7 +10,7 @@ export default function CtaBand() {
       <p className="cta-copy">I&apos;ll take care of your pet from hello to pickup, with the same calm, personal attention every visit.</p>
       <div className="cta-actions">
         <a className="button button-dark" href={bookingUrl} target="_blank" rel="noopener noreferrer">Book Appointment</a>
-        <a className="phone-link" href="tel:+16823467561">+1 682-346-7561</a>
+        <a className="phone-link" href="tel:16823467661">(682) 346-7661</a>
       </div>
     </section>
   )
