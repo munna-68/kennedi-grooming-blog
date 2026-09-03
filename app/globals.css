@@ -663,6 +663,12 @@ img {
   transition: background 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
 }
 
+/* Specificity beats `.navbar-mobile a` (0,1,1): without this the CTA
+   inherits dark body-link color on the dark button (dark-on-dark). */
+.navbar-mobile a.navbar-mobile-cta {
+  color: #ffffff;
+}
+
 .navbar-mobile-cta:hover {
   background: #1A1A1A;
   color: #ffffff;
@@ -673,17 +679,15 @@ img {
   transform: scale(0.98);
 }
 
-/* Blog hero — 1:1 mirrors main site hero: light --hero-bg + grid-accent + doodles */
+/* Blog hero — 1:1 mirrors main site hero: light --hero-bg + grid-accent + doodles.
+   NOTE: background-COLOR only — the `background` shorthand would wipe the
+   .grid-accent dot pattern (main site sets backgroundColor for this reason). */
 .blog-hero {
   position: relative;
   min-height: 560px;
   overflow: hidden;
-  background: var(--hero-bg);
+  background-color: var(--hero-bg);
   color: var(--color-ink);
-}
-
-.blog-hero.grid-accent {
-  /* keep dot grid from main site; subtle on warm off-white */
 }
 
 .hero-content {
@@ -1213,10 +1217,14 @@ img {
   border: 1px solid var(--color-primary);
   border-radius: 50%;
   color: var(--color-green-ink);
-  font-family: var(--font-serif);
-  font-size: 3.7rem;
-  font-style: italic;
-  line-height: 1;
+}
+
+/* geometric centering — a stroke SVG has no type side-bearings, unlike the
+   old ♡ glyph whose italic advance width sat the ink off-center */
+.empty-mark svg {
+  display: block;
+  width: 34px;
+  height: 34px;
 }
 
 .blog-empty h2,

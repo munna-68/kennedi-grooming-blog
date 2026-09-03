@@ -94,7 +94,11 @@ export default async function BlogIndex() {
 
       {posts.length === 0 ? (
         <section className="blog-empty page-container">
-          <div className="empty-mark" aria-hidden="true">♡</div>
+          <div className="empty-mark" aria-hidden="true">
+            <svg viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M25,40 Q25,40 15,30 C5,20 10,5 20,10 C25,12 25,18 25,18 C25,18 25,12 30,10 C40,5 45,20 35,30 Q25,40 25,40 Z" />
+            </svg>
+          </div>
           <p className="eyebrow">The journal is getting ready</p>
           <HeartDottedText as="h2">Paws in progress.</HeartDottedText>
           <p>I&apos;m working on the first stories now. Check back soon for thoughtful tips on keeping your pet comfortable, healthy, and beautifully cared for.</p>

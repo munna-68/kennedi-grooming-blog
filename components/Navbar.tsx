@@ -97,17 +97,19 @@ function getNavIcon(iconName: IconName) {
   return icons[iconName]
 }
 
+// Drawer order mirrors main site exactly (App.jsx navItems + Blog + Mobile
+// last): 8 pair items, then the wide centered Mobile item. No Policy link —
+// like main, Policy lives in the footer (desktop nav has none either).
 const mobileLinks: Array<[string, string, IconName]> = [
   ['Home', '/#home', 'home'],
   ['About', '/#about', 'about'],
   ['Dog Grooming', '/#dog-grooming', 'dog'],
   ['Cat Grooming', '/#cat-grooming', 'cat'],
   ['Gallery', '/#gallery', 'gallery'],
-  ['Mobile Grooming', '/#mobile', 'mobile'],
   ['FAQ', '/#faq', 'faq'],
   ['Reviews', '/#reviews', 'reviews'],
-  ['Policy', '/#terms', 'policy'],
   ['Blog', '/blog', 'blog'],
+  ['Mobile Grooming', '/#mobile', 'mobile'],
 ]
 
 export default function Navbar() {

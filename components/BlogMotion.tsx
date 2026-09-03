@@ -48,7 +48,27 @@ export default function BlogMotion() {
       ScrollTrigger.refresh()
     }, document.body)
 
-    return () => context.revert()
+    // Font swaps + late images shift layout after triggers are measured —
+    // re-measure so above-the-fold reveals can't get stuck hidden.
+    const refresh = () => ScrollTrigger.refresh()
+    document.fonts.ready.then(() => requestAnimationFrame(refresh))
+    window.addEventListener('load', refresh)
+    // Safety net: if anything above the fold is still hidden after load
+    // (e.g. a miscalculated trigger), reveal it instead of leaving a gap.
+    const safety = window.setTimeout(() => {
+      gsap.utils.toArray<HTMLElement>('.reveal, .reveal-text').forEach((el) => {
+        if (el.getBoundingClientRect().top < window.innerHeight && getComputedStyle(el).opacity === '0') {
+          gsap.set(el, { opacity: 1, y: 0, scale: 1 })
+        }
+      })
+      ScrollTrigger.refresh()
+    }, 2500)
+
+    return () => {
+      window.removeEventListener('load', refresh)
+      window.clearTimeout(safety)
+      context.revert()
+    }
   }, [pathname])
 
   return null
