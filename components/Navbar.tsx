@@ -14,7 +14,6 @@ const desktopLinks = [
   ['Mobile Grooming', '/#mobile'],
   ['FAQ', '/#faq'],
   ['Reviews', '/#reviews'],
-  ['Policy', '/#terms'],
 ] as const
 
 type IconName = 'home' | 'about' | 'dog' | 'cat' | 'gallery' | 'faq' | 'reviews' | 'mobile' | 'blog' | 'policy'
