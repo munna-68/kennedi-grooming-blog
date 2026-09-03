@@ -13,7 +13,7 @@
   --color-line: rgba(0, 0, 0, 0.12);
   --font-display: var(--font-brasika), 'Brasika Display', Georgia, serif;
   --font-serif: Georgia, 'Times New Roman', serif;
-  --font-sans: 'Times New Roman MT', Georgia, serif;
+  --font-sans: 'Times New Roman MT', serif; /* main site body stack verbatim — Georgia fallback made nav/buttons ~7% wider */
   --radius-card: 16px;
   --radius-panel: 20px;
   --radius-btn: 16px;
@@ -340,7 +340,7 @@ img {
   font-size: 8px;
   font-style: italic;
   line-height: 1.05;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.025em;
   white-space: nowrap;
 }
 
@@ -359,13 +359,13 @@ img {
 .navbar-desktop {
   display: none;
   align-items: center;
-  gap: clamp(10px, 0.9vw, 16px);
-  font-size: clamp(10px, 0.85vw, 11px);
+  gap: 16px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: clamp(0.06em, 0.08vw, 0.1em);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   white-space: nowrap;
-  font-family: 'Times New Roman MT', Georgia, serif;
+  font-family: 'Times New Roman MT', serif; /* main nav inline style verbatim */
 }
 
 .navbar-desktop a,
@@ -494,14 +494,14 @@ img {
 
 .navbar-mobile-top {
   background: #ffffff;
-  padding: 24px 24px 22px;
+  padding: 24px 24px 24px;
   overflow-y: auto;
 }
 
 .navbar-mobile-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px 24px;
+  gap: 24px 24px;
 }
 
 .navbar-mobile-item {
@@ -509,6 +509,13 @@ img {
   flex-direction: column;
   gap: 8px;
   text-decoration: none;
+}
+
+/* mirrors main `col-span-2 mx-auto` (App.jsx mobile drawer) — centers the
+   wide item across both columns at content width */
+.navbar-mobile-item--wide {
+  grid-column: span 2 / span 2;
+  margin-inline: auto;
 }
 
 .navbar-mobile-item-row {
@@ -533,6 +540,17 @@ img {
   background: #D4E8E0;
 }
 
+/* Blog has no Tailwind, so the `w-6 h-6 text-[#4A5D4A]` classes on the
+   drawer icons are dead — without this the SVGs stretch to fill the
+   48px circle (main site: 24px icon in 48px circle). */
+.navbar-mobile-icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex-shrink: 0;
+  color: #4A5D4A;
+}
+
 .navbar-mobile-label {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 15px;
@@ -555,8 +573,29 @@ img {
   position: relative;
   overflow: hidden;
   background: #E8F0EB;
-  padding: 24px 24px 28px;
+  padding: 24px 24px 32px;
   text-align: center;
+}
+
+/* star decorations — mirrors main `absolute left-20 bottom-24` (80/96px)
+   and `absolute right-24 bottom-28` (96/112px); blog has no Tailwind so
+   these replace the dead `absolute … opacity-*` utility classes */
+.navbar-mobile-star {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.navbar-mobile-star-one {
+  left: 80px;
+  bottom: 96px;
+  opacity: 0.3;
+}
+
+.navbar-mobile-star-two {
+  right: 96px;
+  bottom: 112px;
+  opacity: 0.25;
 }
 
 .navbar-mobile-glow {
@@ -587,20 +626,20 @@ img {
   position: relative;
   z-index: 1;
   font-family: var(--font-display);
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   line-height: 1;
   color: #4A5D4A;
-  margin: 0 0 6px;
-  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+  letter-spacing: 0.025em;
 }
 
 .navbar-mobile-kicker {
   position: relative;
   z-index: 1;
-  margin: 0 0 18px;
+  margin: 0 0 20px;
   color: #7A8B7A;
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.30em;
   text-transform: uppercase;
 }
@@ -618,7 +657,7 @@ img {
   background: #2C2C2C;
   color: #ffffff;
   font-size: 0.875rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: background 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
@@ -1478,19 +1517,20 @@ img {
 .site-footer {
   position: relative;
   z-index: 2;
-  padding: 80px 24px 28px;
+  padding: 80px 24px 40px;
   background: var(--color-ink);
   color: var(--color-white);
-  font-family: 'Times New Roman MT', Georgia, serif;
+  font-family: 'Times New Roman MT', serif; /* main footer inline style verbatim */
 }
 
 .footer-grid {
   display: grid;
   max-width: 1280px;
   margin-inline: auto;
-  padding-bottom: 55px;
+  margin-bottom: 64px;
+  padding-bottom: 0;
   grid-template-columns: 1fr;
-  gap: 42px;
+  gap: 48px 32px;
 }
 
 .footer-nav-column {
@@ -1500,11 +1540,12 @@ img {
 .footer-nav-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 11px 18px;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 0.78rem;
+  gap: 12px 16px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .footer-nav-grid a {
@@ -1516,13 +1557,13 @@ img {
 }
 
 .newsletter-copy {
-  max-width: 210px;
-  margin: 0;
+  max-width: 320px;
+  margin: 0 0 16px;
   color: rgba(255, 255, 255, 0.7);
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 16px;
   font-style: italic;
-  line-height: 1.55;
+  line-height: 1.5;
 }
 
 .footer-logo {
@@ -1577,12 +1618,12 @@ img {
 }
 
 .site-footer h2 {
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   color: var(--color-primary);
   font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -1593,12 +1634,23 @@ img {
   margin: 0;
   padding: 0;
   flex-direction: column;
-  gap: 11px;
   list-style: none;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
+}
+
+.footer-link-list {
+  gap: 12px;
+}
+
+.footer-contact-list {
+  gap: 16px;
+}
+
+.hours-list {
+  gap: 8px;
 }
 
 .footer-link-list a,
@@ -1613,10 +1665,6 @@ img {
 .footer-inline-cta:hover,
 .footer-bottom a:hover {
   color: var(--color-primary);
-}
-
-.footer-contact-list {
-  gap: 14px;
 }
 
 .footer-contact-list a {
@@ -1636,10 +1684,6 @@ img {
   text-transform: uppercase;
 }
 
-.hours-list {
-  gap: 8px;
-}
-
 .hours-list li {
   display: flex;
   justify-content: space-between;
@@ -1655,9 +1699,9 @@ img {
 
 .footer-booking {
   width: 100%;
-  margin-top: 22px;
+  margin-top: 0;
   color: var(--color-ink);
-  font-size: 0.75rem;
+  font-size: 12px;
   letter-spacing: 0.1em;
   padding: 14px 24px;
 }
@@ -1665,32 +1709,48 @@ img {
 .footer-identity {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer-identity .heart-title {
   color: var(--color-white);
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: clamp(0.7rem, 1.3vw, 1.05rem);
   line-height: 1;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
 }
 
 .footer-bottom {
   display: flex;
-  padding-top: 23px;
+  padding-top: 32px;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  gap: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.4);
-  font-size: 0.66rem;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  max-width: 1280px;
+  margin-inline: auto;
 }
 
 .footer-bottom > span:last-child {
   display: flex;
-  gap: 20px;
+  gap: 24px;
+}
+
+.footer-identity {
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-identity {
+    align-items: flex-start;
+    text-align: left;
+  }
 }
 
 @media (min-width: 640px) {
@@ -1701,6 +1761,12 @@ img {
   .post-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+@media (min-width: 768px) {
+  .navbar-cta {
+    display: inline-flex;
+  }
 
   .footer-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1708,12 +1774,6 @@ img {
 
   .footer-nav-grid {
     max-width: 260px;
-  }
-}
-
-@media (min-width: 768px) {
-  .navbar-cta {
-    display: inline-flex;
   }
 }
 
@@ -1765,11 +1825,11 @@ img {
 
   .footer-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 32px 32px;
+    gap: 48px 32px;
   }
 
   .site-footer {
-    padding: 80px 48px 28px;
+    padding: 80px 48px 40px;
   }
 }
 
@@ -1815,8 +1875,9 @@ img {
 
 @media (max-width: 767px) {
   .footer-bottom {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
+    text-align: center;
   }
 
   .footer-bottom > span:last-child {

@@ -48,6 +48,10 @@ The 4 mismatches that were corrected (details preserved for next agents):
 
 4. **Heart-dot** — see HeartDottedText row above; 1:1 port guarantees the scattered small tilted hearts (one per lowercase "i") positioned `left: center - size/2`, `top: -size*0.05` above the dot, size `0.55*charHeight`, painted 335×335 asset with `invert(1)` for `lightText`.
 
+5. **Nav font stack** (2026-09) — blog's `--font-sans` / `.navbar-desktop` / `.site-footer` had a `Georgia` fallback (`'Times New Roman MT', Georgia, serif`) while main uses `'Times New Roman MT', serif` verbatim. On machines without Times New Roman MT, Georgia fallback rendered nav links ~7% wider (648px vs 606px total) and the BOOK NOW button wider. Fix drops Georgia in those three spots; `--font-serif` (Georgia) still serves article/serif contexts like main's `font-serif`.
+6. **Mobile drawer icons** (2026-09) — icon SVGs carried Tailwind `w-6 h-6 text-[#4A5D4A]`, dead without Tailwind, so SVGs stretched to 48px filling the circle (main: 24px icon in 48px circle). Fix: `.navbar-mobile-icon svg { 24px; color: #4A5D4A }`.
+7. **Mobile drawer utilities** (2026-09) — `col-span-2 mx-auto w-full max-w-[50%]` + `absolute left-20 bottom-24 …` classes are dead without Tailwind. Replaced with `.navbar-mobile-item--wide` (`grid-column: span 2; margin-inline: auto`, matching main's `col-span-2 mx-auto`) and `.navbar-mobile-star-one/two` (80/96px, 96/112px). Also aligned micro-spacing: grid row gap 20→24px, top pad bottom 22→24px, bottom pad bottom 28→32px, script 1.45rem→1.5rem + `tracking-wide`, kicker weight 700→500 + mb 20px, CTA weight 800→700.
+
 ## When adding new blog UI
 
 - Grep the main site for the nearest equivalent section first (`rg -n "className" ../kennedis-studio/src/App.jsx`).

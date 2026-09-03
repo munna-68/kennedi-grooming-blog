@@ -200,7 +200,7 @@ export default function Navbar() {
                 key={label}
                 href={href}
                 onClick={() => setMenuOpen(false)}
-                className={`navbar-mobile-item${label === 'Mobile Grooming' ? ' col-span-2 mx-auto w-full max-w-[50%]' : ''}`}
+                className={`navbar-mobile-item${label === 'Mobile Grooming' ? ' navbar-mobile-item--wide' : ''}`}
               >
                 <div className="navbar-mobile-item-row">
                   <span className="navbar-mobile-icon" aria-hidden="true">
@@ -217,12 +217,12 @@ export default function Navbar() {
         <div className="navbar-mobile-bottom">
           <div className="navbar-mobile-glow navbar-mobile-glow-one" aria-hidden="true" />
           <div className="navbar-mobile-glow navbar-mobile-glow-two" aria-hidden="true" />
-          <div aria-hidden="true" className="absolute left-20 bottom-24 opacity-30">
+          <div aria-hidden="true" className="navbar-mobile-star navbar-mobile-star-one">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B7355" strokeWidth="1.5">
               <path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" />
             </svg>
           </div>
-          <div aria-hidden="true" className="absolute right-24 bottom-28 opacity-25">
+          <div aria-hidden="true" className="navbar-mobile-star navbar-mobile-star-two">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8B7355" strokeWidth="1.5">
               <path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" />
             </svg>

@@ -5,6 +5,11 @@ import type { ElementType } from 'react'
 
 type Position = { left: number; top: number; size: number }
 
+// 1:1 port of ../kennedis-studio/src/components/HeartDottedText.jsx.
+// Measurement constants (0.55 size, -0.05 top) and SVG asset are verbatim.
+// Only deltas vs main: TS types + 'use client' + kept `heart-title`
+// wrapper class (blog footer CSS targets `.footer-identity .heart-title`
+// for color/size; the class only sets position:relative, same as inline).
 export default function HeartDottedText({
   as: Tag = 'h1',
   children,
@@ -39,11 +44,12 @@ export default function HeartDottedText({
         const rect = range.getBoundingClientRect()
         if (!rect.width || !rect.height) continue
 
-        const size = rect.height * 0.55
+        const charHeight = rect.height
+        const heartSize = charHeight * 0.55
         positions.push({
-          left: rect.left + rect.width / 2 - size / 2 - containerRect.left,
-          top: rect.top - containerRect.top - size * 0.05,
-          size,
+          left: rect.left + rect.width / 2 - heartSize / 2 - containerRect.left,
+          top: rect.top - containerRect.top - heartSize * 0.05,
+          size: heartSize,
         })
       }
     }
@@ -70,13 +76,12 @@ export default function HeartDottedText({
   }, [measure])
 
   return (
-    <Tag ref={containerRef as never} className={`heart-title ${className}`}>
+    <Tag ref={containerRef as never} className={`heart-title ${className}`} style={{ position: 'relative' }}>
       {children}
       {hearts.map((position, index) => (
         <svg
           key={index}
           aria-hidden="true"
-          className="heart-title-mark"
           style={{
             position: 'absolute',
             left: position.left,

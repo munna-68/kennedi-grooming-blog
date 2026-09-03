@@ -114,9 +114,9 @@ export default function Footer() {
           <HeartDottedText as="span" lightText className="font-display text-white">
             Kennedi&apos;s Grooming Studio
           </HeartDottedText>
-          <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.40)', fontWeight: 700, letterSpacing: '0.08em' }}>Kennedi&apos;s Grooming Studio © 2026 All Rights Reserved</span>
+          <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.40)', fontWeight: 700, letterSpacing: '0.1em' }}>Kennedi&apos;s Grooming Studio © 2026 All Rights Reserved</span>
         </div>
-        <span style={{ display: 'flex', gap: '24px', fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' as const }}>
+        <span style={{ display: 'flex', gap: '24px', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>
           <a href="/#terms" style={{ color: 'rgba(255,255,255,0.40)' }}>
             Terms of Service
           </a>
