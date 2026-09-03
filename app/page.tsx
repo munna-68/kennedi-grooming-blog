@@ -60,15 +60,32 @@ export default async function BlogIndex() {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <section className="blog-hero">
-        <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
-        <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
-        <span className="hero-paw hero-paw-one" aria-hidden="true">✦</span>
-        <span className="hero-paw hero-paw-two" aria-hidden="true">♡</span>
+      <section className="blog-hero grid-accent">
+        {/* subtle doodles matching main hero — sage + pink, floating */}
+        <span className="hero-doodle hero-doodle-one doodle-float" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 8c0-3 4-4 6 0 2-4 6-3 6 0 0 4-4 6-6 8-2-2-6-4-6-8z" />
+          </svg>
+        </span>
+        <span className="hero-doodle hero-doodle-two doodle-wiggle" aria-hidden="true">
+          <svg width="42" height="42" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M40 10 Q25 25 10 35" />
+            <path d="M20 20 L10 35 L25 35" />
+          </svg>
+        </span>
+        <span className="hero-doodle hero-doodle-bone doodle-float" aria-hidden="true" style={{ animationDelay: '-1.2s' }}>
+          ✦
+        </span>
         <div className="hero-content">
           <p className="eyebrow reveal">Kennedi&apos;s Grooming Studio <span aria-hidden="true">·</span> Fort Worth, TX</p>
-          <HeartDottedText as="h1" className="reveal" lightText>
-            Good care starts <em>here.</em>
+          <HeartDottedText as="h1" className="reveal">
+            Good care starts{' '}
+            <em>
+              here.
+              <svg className="hero-underline doodle-draw" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 5 Q 50 12 100 5" stroke="currentColor" strokeWidth="4.5" fill="none" strokeLinecap="round" />
+              </svg>
+            </em>
           </HeartDottedText>
           <p className="hero-sub reveal">A softer place for pet care tips, grooming know-how, and little notes from my studio.</p>
           <a className="hero-scroll reveal" href="#latest">Explore the journal <span aria-hidden="true">↓</span></a>
