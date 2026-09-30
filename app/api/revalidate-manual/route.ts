@@ -1,6 +1,6 @@
 import { revalidatePath } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
-import { getPublishedPosts } from '@/lib/notion'
+import { getPublishedPosts, invalidateImageCache } from '@/lib/notion'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,6 +16,7 @@ async function handle(request: NextRequest) {
   const slug = searchParams.get('slug')
 
   try {
+    invalidateImageCache()
     revalidatePath('/')
     revalidatePath('/blog')
 

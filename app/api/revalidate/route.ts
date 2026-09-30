@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from 'crypto'
 import { revalidatePath } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
-import { getPostMetaById } from '@/lib/notion'
+import { getPostMetaById, invalidateImageCache } from '@/lib/notion'
 
 export const dynamic = 'force-dynamic'
 
@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
 
     let slug: string | null = null
     if (pageId && type.startsWith('page.')) {
+      invalidateImageCache(pageId)
       const meta = await getPostMetaById(pageId).catch(() => null)
       slug = meta?.slug ?? null
       if (slug) {

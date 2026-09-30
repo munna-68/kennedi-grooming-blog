@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm'
 import CtaBand from '@/components/CtaBand'
 import HeartDottedText from '@/components/HeartDottedText'
 import JsonLd from '@/components/JsonLd'
-import { formatDate, getPostBySlug, getPublishedPosts, siteUrl } from '@/lib/notion'
+import { formatDate, getPostBySlug, getPublishedPosts, isNotionS3Url, siteUrl } from '@/lib/notion'
 
 export const revalidate = 3600
 
@@ -25,7 +25,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return { title: 'Story not found' }
 
   const description = post.excerpt || `A story from Kennedi's Grooming Studio in Fort Worth, TX.`
-  const image = post.coverImage || `${siteUrl}/blog/og-image.jpg`
+  const image = post.coverImage
+    ? (post.coverImage.startsWith('http') ? post.coverImage : `${siteUrl}${post.coverImage}`)
+    : `${siteUrl}/blog/og-image.jpg`
 
   return {
     title: post.title,
@@ -60,7 +62,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     datePublished: post.publishedDate ?? undefined,
     dateModified: post.publishedDate ?? undefined,
     url: `${siteUrl}/blog/${post.slug}`,
-    image: post.coverImage ? [post.coverImage] : [`${siteUrl}/blog/og-image.jpg`],
+    image: post.coverImage
+      ? [post.coverImage.startsWith('http') ? post.coverImage : `${siteUrl}${post.coverImage}`]
+      : [`${siteUrl}/blog/og-image.jpg`],
     author: { '@type': 'Person', name: 'Kennedi Sherralle', url: siteUrl },
     publisher: { '@type': 'Organization', name: "Kennedi's Grooming Studio", url: siteUrl, logo: { '@type': 'ImageObject', url: `${siteUrl}/blog/logo-v2.png` } },
     mainEntityOfPage: { '@type': 'WebPage', '@id': `${siteUrl}/blog/${post.slug}` },
@@ -84,7 +88,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                img: ({ node: _node, ...props }) => <img {...props} alt={props.alt ?? ''} loading="lazy" />,
+                img: ({ node: _node, ...props }) => {
+                  const rawSrc = typeof props.src === 'string' ? props.src : ''
+                  let src = props.src
+                  if (rawSrc.startsWith('/api/image')) {
+                    src = `/blog${rawSrc}`
+                  } else if (isNotionS3Url(rawSrc)) {
+                    src = `/blog/api/image?url=${encodeURIComponent(rawSrc)}`
+                  }
+                  return <img {...props} src={src} alt={props.alt ?? ''} loading="lazy" />
+                },
                 a: ({ node: _node, ...props }) => <a {...props} target={props.href?.startsWith('http') ? '_blank' : undefined} rel={props.href?.startsWith('http') ? 'noopener noreferrer' : undefined} />,
               }}
             >

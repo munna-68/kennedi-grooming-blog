@@ -117,7 +117,14 @@ export default async function BlogIndex() {
               </div>
               <article className="featured-card reveal-image">
                 <Link href={`/${featured.slug}`} className="featured-cover">
-                  {featured.coverImage ? <img src={featured.coverImage} alt={featured.title} /> : <div className="cover-placeholder" aria-hidden="true"><span>♡</span></div>}
+                  {featured.coverImage ? (
+                    <img
+                      src={featured.coverImage.startsWith('/api/image') ? `/blog${featured.coverImage}` : featured.coverImage}
+                      alt={featured.title}
+                    />
+                  ) : (
+                    <div className="cover-placeholder" aria-hidden="true"><span>♡</span></div>
+                  )}
                   <span className="featured-stamp">Just posted</span>
                 </Link>
                 <div className="featured-body">

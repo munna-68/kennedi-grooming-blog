@@ -3,12 +3,13 @@ import type { BlogPostMeta } from '@/lib/notion'
 import { formatDate } from '@/lib/notion'
 
 export default function PostCard({ post, delay = 0 }: { post: BlogPostMeta; delay?: number }) {
+  const coverSrc = post.coverImage?.startsWith('/api/image') ? `/blog${post.coverImage}` : post.coverImage
   return (
     <article className="post-card reveal-card" style={{ '--delay': `${delay}s` } as React.CSSProperties}>
       <Link href={`/${post.slug}`} aria-label={post.title}>
         <div className="post-card-cover">
-          {post.coverImage ? (
-            <img src={post.coverImage} alt={post.title} loading="lazy" />
+          {coverSrc ? (
+            <img src={coverSrc} alt={post.title} loading="lazy" />
           ) : (
             <div className="cover-placeholder" aria-hidden="true"><span>♡</span></div>
           )}
