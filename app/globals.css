@@ -573,29 +573,14 @@ img {
   position: relative;
   overflow: hidden;
   background: #E8F0EB;
-  padding: 24px 24px 32px;
+  padding: 24px;
   text-align: center;
 }
 
-/* star decorations — mirrors main `absolute left-20 bottom-24` (80/96px)
-   and `absolute right-24 bottom-28` (96/112px); blog has no Tailwind so
-   these replace the dead `absolute … opacity-*` utility classes */
-.navbar-mobile-star {
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.navbar-mobile-star-one {
-  left: 80px;
-  bottom: 96px;
-  opacity: 0.3;
-}
-
-.navbar-mobile-star-two {
-  right: 96px;
-  bottom: 112px;
-  opacity: 0.25;
+@media (min-width: 640px) {
+  .navbar-mobile-bottom {
+    padding: 32px 24px;
+  }
 }
 
 .navbar-mobile-glow {
@@ -620,28 +605,6 @@ img {
   height: 128px;
   background: #C4DDD5;
   opacity: 0.30;
-}
-
-.navbar-mobile-script {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  line-height: 1;
-  color: #4A5D4A;
-  margin: 0 0 8px;
-  letter-spacing: 0.025em;
-}
-
-.navbar-mobile-kicker {
-  position: relative;
-  z-index: 1;
-  margin: 0 0 20px;
-  color: #7A8B7A;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.30em;
-  text-transform: uppercase;
 }
 
 .navbar-mobile-cta {
